@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:test_aezakmi/features/workers/presentation/pages/add_employee_page.dart';
 
 class EmployeePage extends StatelessWidget {
   const EmployeePage({super.key});
@@ -40,10 +40,10 @@ class EmployeePage extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      children: [],
+                      children: [Text('data')],
                     ),
                     Row(
-                      children: [],
+                      children: [Text('data')],
                     ),
                   ],
                 )),
@@ -57,7 +57,14 @@ class EmployeePage extends StatelessWidget {
             bottom: 10,
             right: 10,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddEmployeePage(),
+                  ),
+                );
+              },
               splashColor: Colors.transparent,
               splashFactory: NoSplash.splashFactory,
               child: SvgPicture.asset(
@@ -71,60 +78,4 @@ class EmployeePage extends StatelessWidget {
   }
 }
 
-class EmptyStateHomePage extends StatelessWidget {
-  const EmptyStateHomePage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: Text(
-          'Сотрудники',
-          style: TextStyle(
-            fontSize: 34,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
-      body: Stack(
-        children: [
-          Positioned(
-            top: 240,
-            right: 100,
-            child: Image.asset(
-              'assets/images/add_people.png',
-              height: 142.h,
-              width: 215.w,
-            ),
-          ),
-          Positioned(
-            bottom: 300,
-            right: 165,
-            child: Text('Тут пока пусто'),
-          ),
-          Positioned(
-            bottom: 235,
-            right: 125,
-            child: SizedBox(
-              child: Text(
-                  'Добавьте сотрудников,\nчтобы обеспечить более\n удобный учет'),
-            ),
-          ),
-          Positioned(
-            bottom: 5,
-            right: 10,
-            child: InkWell(
-              onTap: () {},
-              splashColor: Colors.transparent,
-              splashFactory: NoSplash.splashFactory,
-              child: SvgPicture.asset(
-                'assets/icons/floating.svg',
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

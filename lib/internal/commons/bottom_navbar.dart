@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:test_aezakmi/features/home/presentation/pages/home_page.dart';
+import 'package:test_aezakmi/features/finance/presentation/pages/empty_finance_state_page.dart';
+import 'package:test_aezakmi/features/finance/presentation/pages/test.dart';
+import 'package:test_aezakmi/features/workers/presentation/pages/employee_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -22,7 +24,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     //персонажи
     EmployeePage(),
     //локация
-    EmployeePage(),
+    EmptyFinanceStatePage(),
     //Эпизоды
     EmployeePage(),
     //настройки
