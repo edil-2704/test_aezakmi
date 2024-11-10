@@ -41,7 +41,7 @@ class CustomTextButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            icon!,
+            icon ?? Text(''),
             SizedBox(width: 5),
             Text(
               text,

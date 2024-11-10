@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:test_aezakmi/features/finance/presentation/pages/test.dart';
+import 'package:test_aezakmi/features/workers/presentation/pages/add_employee_page.dart';
 import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.dart';
 
 class EmptyFinanceStatePage extends StatelessWidget {
@@ -47,7 +49,10 @@ class EmptyFinanceStatePage extends StatelessWidget {
           ],
         ),
         floatingActionButton: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddWarningPage()));
+          },
           splashColor: Colors.transparent,
           splashFactory: NoSplash.splashFactory,
           child: SvgPicture.asset(
@@ -89,7 +94,6 @@ class BuildEmptyState extends StatelessWidget {
                   'Добавьте сотрудников,\nчтобы обеспечить более\n удобный учет'),
             ),
           ),
-        
         ],
       ),
     );
