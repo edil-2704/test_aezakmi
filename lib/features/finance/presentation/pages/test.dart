@@ -18,13 +18,7 @@ class AddWarningPage extends StatelessWidget {
         child: Column(
           children: [
             BuildInputField(
-              hint: 'Комментарий',
-              maxLines: 1,
-              isNavigatable: true,
-            ),
-            const SizedBox(height: 12),
-            BuildInputField(
-              hint: 'Комментарий',
+              hint: 'Сотрудник',
               maxLines: 1,
               isNavigatable: true,
             ),
@@ -53,10 +47,9 @@ class AddWarningPage extends StatelessWidget {
               isNavigatable: true,
             ),
             const Spacer(),
-            Spacer(),
             CustomTextButton(
               onPressed: () {},
-              text: 'Save',
+              text: 'Сохранить',
               height: 62.h,
               width: 358.w,
             ),
@@ -71,49 +64,86 @@ class BuildInputField extends StatefulWidget {
   final String hint;
   final bool isNavigatable;
   final int maxLines;
-  const BuildInputField(
-      {super.key,
-      required this.isNavigatable,
-      required this.maxLines,
-      required this.hint});
+
+  const BuildInputField({
+    super.key,
+    required this.isNavigatable,
+    required this.maxLines,
+    required this.hint,
+  });
 
   @override
   State<BuildInputField> createState() => _BuildInputFieldState();
 }
 
 class _BuildInputFieldState extends State<BuildInputField> {
+  String? selectedEmployee;
+  final TextEditingController commentController = TextEditingController();
+
+  final List<Map<String, String>> employees = [
+    {'name': 'Федотова Елизавета Никитична', 'role': 'Сетевой администратор'},
+    {'name': 'Федоров Владимир Андреевич', 'role': 'IT-аналитик'},
+    {'name': 'Филоненко Анастасия Вадимовна', 'role': 'Сетевой инженер'},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return TextField(
       maxLines: widget.maxLines,
       decoration: InputDecoration(
         hintText: widget.hint,
-        suffixIcon: IconButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (_) => CupertinoAlertDialog(
-                title: Text('data'),
-                content: Column(
-                  children: [
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('close'))
-                  ],
+        suffixIcon: widget.isNavigatable
+            ? IconButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => CupertinoAlertDialog(
+                      title: Text('Выберите сотрудника'),
+                      content: Column(
+                        children: employees
+                            .map(
+                              (employee) => CupertinoDialogAction(
+                                onPressed: () {
+                                  setState(() {
+                                    selectedEmployee = employee['name'];
+                                    Navigator.pop(context); // Закрываем диалог
+                                  });
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      employee['name']!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      employee['role']!,
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                      actions: [
+                        CupertinoDialogAction(
+                          child: Text('Отмена'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
                 ),
-              ),
-            );
-          },
-          icon: Icon(
-            Icons.arrow_forward_ios,
-            size: 16,
-          ),
-        ),
+              )
+            : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
@@ -121,6 +151,7 @@ class _BuildInputFieldState extends State<BuildInputField> {
         filled: true,
         fillColor: Colors.grey.shade200,
       ),
+      controller: TextEditingController(text: selectedEmployee),
     );
   }
 }
