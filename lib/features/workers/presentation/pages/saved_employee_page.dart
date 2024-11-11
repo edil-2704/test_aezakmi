@@ -4,7 +4,16 @@ import 'package:test_aezakmi/features/workers/presentation/pages/employees_info_
 import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.dart';
 
 class SavedEmployeePage extends StatelessWidget {
-  const SavedEmployeePage({super.key});
+  final String tittle;
+  final String btnTittle;
+  final Function() onTap;
+
+  const SavedEmployeePage({
+    super.key,
+    required this.tittle,
+    required this.btnTittle,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +36,7 @@ class SavedEmployeePage extends StatelessWidget {
             bottom: 300,
             right: 165,
             child: Text(
-              'Сохранено!',
+              tittle,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
@@ -48,15 +57,8 @@ class SavedEmployeePage extends StatelessWidget {
             bottom: 150,
             right: 90,
             child: CustomTextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EmployeesInfoPage(),
-                  ),
-                );
-              },
-              text: 'К сотрудникам',
+              onPressed: onTap,
+              text: btnTittle,
               height: 62.h,
               width: 218.w,
             ),

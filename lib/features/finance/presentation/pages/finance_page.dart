@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_aezakmi/features/workers/presentation/pages/employee_page.dart';
+import 'package:test_aezakmi/features/workers/presentation/pages/saved_employee_page.dart';
 import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.dart';
 
 class FinancePage extends StatefulWidget {
@@ -15,6 +16,7 @@ class FinancePage extends StatefulWidget {
 class _FinancePageState extends State<FinancePage>
     with SingleTickerProviderStateMixin {
   DateTime? pickedDate;
+  late TabController tabController;
 
   Future<void> _pickDate(BuildContext context) async {
     DateTime? date = await showDatePicker(
@@ -26,28 +28,25 @@ class _FinancePageState extends State<FinancePage>
         return Theme(
           data: ThemeData.light().copyWith(
             primaryColor: Colors.blue,
-            buttonTheme: ButtonThemeData(
+            buttonTheme: const ButtonThemeData(
               textTheme: ButtonTextTheme.primary,
             ),
           ),
-          child: child ?? SizedBox.shrink(),
+          child: child ?? const SizedBox.shrink(),
         );
       },
     );
 
     if (date != null) {
-      setState(() {
-        pickedDate = date;
-      });
+      setState(() => pickedDate = date);
     }
   }
 
   String getFormattedDate() {
-    if (pickedDate == null) return 'Выберите дату';
-    return '${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}';
+    return pickedDate == null
+        ? 'Выберите дату'
+        : '${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}';
   }
-
-  late TabController tabController;
 
   @override
   void initState() {
@@ -61,125 +60,84 @@ class _FinancePageState extends State<FinancePage>
     super.dispose();
   }
 
-  Widget _buildFloatingActionButton() {
-    switch (tabController.index) {
-      case 0:
-        return InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddWarningPage()));
-          },
-          splashColor: Colors.transparent,
-          splashFactory: NoSplash.splashFactory,
-          child: SvgPicture.asset(
-            'assets/icons/floating.svg',
+  Widget buildFloatingActionButton() {
+    final pages = [
+      AddWarningPage(),
+      AddBonusPage(),
+      AddSalaryPage(),
+    ];
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => pages[tabController.index],
           ),
         );
-      case 1:
-        return InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddSalaryPage()));
-          },
-          splashColor: Colors.transparent,
-          splashFactory: NoSplash.splashFactory,
-          child: SvgPicture.asset(
-            'assets/icons/floating.svg',
-          ),
-        );
-      case 2:
-        return InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddSalaryPage()));
-          },
-          splashColor: Colors.transparent,
-          splashFactory: NoSplash.splashFactory,
-          child: SvgPicture.asset(
-            'assets/icons/floating.svg',
-          ),
-        );
-      default:
-        return Container();
-    }
+      },
+      splashColor: Colors.transparent,
+      splashFactory: NoSplash.splashFactory,
+      child: SvgPicture.asset('assets/icons/floating.svg'),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: tabController.length,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Финансы',
-            style: TextStyle(fontSize: 34, fontWeight: FontWeight.w700),
-          ),
-          actions: [
-            CustomTextButton(
-              height: 30.h,
-              icon: Icon(
-                Icons.filter_alt_outlined,
-                color: Colors.white,
-              ),
-              width: 90.w,
-              text: 'Filter',
-              onPressed: () {
-                _pickDate(context);
-              },
-            ),
-            SizedBox(width: 16),
-          ],
-          bottom: TabBar(
-            controller: tabController,
-            tabs: [
-              Tab(text: 'Выговор'),
-              Tab(text: 'Премия'),
-              Tab(text: 'Зарплата'),
-            ],
-            indicatorColor: Colors.blue,
-            labelColor: Colors.black,
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Финансы',
+          style: TextStyle(fontSize: 34, fontWeight: FontWeight.w700),
         ),
-        body: TabBarView(
+        actions: [
+          CustomTextButton(
+            height: 30.h,
+            icon: const Icon(Icons.filter_alt_outlined, color: Colors.white),
+            width: 90.w,
+            text: 'Filter',
+            onPressed: () => _pickDate(context),
+          ),
+          const SizedBox(width: 16),
+        ],
+        bottom: TabBar(
           controller: tabController,
-          children: [
-            const BuildFinanceReprimand(),
-            BuildFinanceBonus(
-              text: getFormattedDate(),
-            ),
-            const BuildFinanceSalary(),
+          tabs: const [
+            Tab(text: 'Выговор'),
+            Tab(text: 'Премия'),
+            Tab(text: 'Зарплата'),
           ],
+          indicatorColor: Colors.blue,
+          labelColor: Colors.black,
         ),
-        floatingActionButton: _buildFloatingActionButton(),
       ),
+      body: TabBarView(
+        controller: tabController,
+        children: [
+          const BuildFinanceReprimand(),
+          BuildFinanceBonus(text: getFormattedDate()),
+          const BuildFinanceSalary(),
+        ],
+      ),
+      floatingActionButton: buildFloatingActionButton(),
     );
   }
 }
 
-class BuildFinanceReprimand extends StatefulWidget {
+class BuildFinanceReprimand extends StatelessWidget {
   const BuildFinanceReprimand({super.key});
 
-  @override
-  State<BuildFinanceReprimand> createState() => _BuildFinanceReprimandState();
-}
-
-class _BuildFinanceReprimandState extends State<BuildFinanceReprimand> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: ListView.separated(
         itemCount: 10,
-        itemBuilder: (context, index) {
-          return SizedBox(
-            height: 113.h,
-            width: 358.w,
-            child: CustomEmployeeCard(),
-          );
-        },
-        separatorBuilder: (context, index) {
-          return SizedBox(height: 20.h);
-        },
+        itemBuilder: (context, index) => SizedBox(
+          height: 113.h,
+          width: 358.w,
+          child: CustomEmployeeCard(),
+        ),
+        separatorBuilder: (context, index) => SizedBox(height: 20.h),
       ),
     );
   }
@@ -195,15 +153,14 @@ class BuildFinanceBonus extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            'Выбранная дата: $text',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
+          Chip(
+            label: Text(
+              '$text',
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
+            ),
           ),
           SizedBox(height: 20.h),
-          Text(
-            'data2',
-            style: TextStyle(fontSize: 14.sp),
-          ),
+          Text('data2', style: TextStyle(fontSize: 14.sp)),
         ],
       ),
     );
@@ -217,16 +174,12 @@ class BuildFinanceSalary extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemCount: 10,
-      itemBuilder: (context, index) {
-        return SizedBox(
-          height: 113.h,
-          width: 358.w,
-          child: CustomEmployeeCard(),
-        );
-      },
-      separatorBuilder: (context, index) {
-        return SizedBox(height: 20.h);
-      },
+      itemBuilder: (context, index) => SizedBox(
+        height: 113.h,
+        width: 358.w,
+        child: CustomEmployeeCard(),
+      ),
+      separatorBuilder: (context, index) => SizedBox(height: 20.h),
     );
   }
 }
@@ -237,8 +190,74 @@ class AddWarningPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Добавить выговор')),
-      body: Center(child: const Text('Добавить выговор')),
+      appBar: AppBar(
+        leading: const BackButton(),
+        title: const Text('Добавить выговор'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            buildInputField('Сотрудник', isNavigatable: true),
+            const SizedBox(height: 12),
+            buildInputField('Данные о выговоре', isNavigatable: true),
+            const SizedBox(height: 12),
+            buildInputField('Выговор'),
+            const SizedBox(height: 12),
+            buildInputField('Дата', isNavigatable: true),
+            const SizedBox(height: 12),
+            buildInputField('Сумма'),
+            const SizedBox(height: 12),
+            buildInputField('Комментарий', maxLines: 5),
+            const Spacer(),
+            SizedBox(
+              height: 62.h,
+              width: 358.w,
+              child: CustomTextButton(
+                text: 'Save',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SavedEmployeePage(
+                        tittle: 'Сохранено!',
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FinancePage()),
+                          );
+                        },
+                        btnTittle: 'to finance',
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildInputField(String hint,
+      {bool isNavigatable = false, int maxLines = 1}) {
+    return TextField(
+      readOnly: isNavigatable,
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        hintText: hint,
+        suffixIcon: isNavigatable
+            ? const Icon(Icons.arrow_forward_ios, size: 16)
+            : null,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide.none,
+        ),
+        filled: true,
+        fillColor: Colors.grey.shade200,
+      ),
     );
   }
 }
@@ -248,7 +267,9 @@ class AddBonusPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(title: const Text('Bonus'), leading: const BackButton()),
+    );
   }
 }
 
@@ -257,6 +278,8 @@ class AddSalaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(title: const Text('Salary')),
+    );
   }
 }

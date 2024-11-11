@@ -60,8 +60,10 @@ class EmployeePage extends StatelessWidget {
 }
 
 class CustomEmployeeCard extends StatelessWidget {
+  final Widget? svgPic;
   const CustomEmployeeCard({
     super.key,
+    this.svgPic,
   });
 
   @override
@@ -81,10 +83,14 @@ class CustomEmployeeCard extends StatelessWidget {
             ],
           ),
           Row(
-            children: [Text('data')],
+            children: [
+              Text('data'),
+            ],
           ),
           Row(
-            children: [Text('data')],
+            children: [
+              Text('data'),
+            ],
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test_aezakmi/features/workers/presentation/pages/employees_info_page.dart';
 import 'package:test_aezakmi/features/workers/presentation/pages/saved_employee_page.dart';
 import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.dart';
 
@@ -59,7 +60,18 @@ class AddEmployeePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SavedEmployeePage(),
+                    builder: (context) => SavedEmployeePage(
+                      tittle: 'Сохранено!',
+                      btnTittle: 'to employees',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EmployeesInfoPage(),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 );
               },
