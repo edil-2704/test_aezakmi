@@ -27,26 +27,7 @@ class EmployeePage extends StatelessWidget {
             itemBuilder: (context, index) {
               return SizedBox(
                 height: 115.h,
-                child: Card(
-                    child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/icons/home.svg',
-                          color: Colors.blue,
-                        ),
-                        Text('data'),
-                      ],
-                    ),
-                    Row(
-                      children: [Text('data')],
-                    ),
-                    Row(
-                      children: [Text('data')],
-                    ),
-                  ],
-                )),
+                child: CustomEmployeeCard(),
               );
             },
             separatorBuilder: (context, index) {
@@ -78,4 +59,35 @@ class EmployeePage extends StatelessWidget {
   }
 }
 
+class CustomEmployeeCard extends StatelessWidget {
+  const CustomEmployeeCard({
+    super.key,
+  });
 
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+        child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              SvgPicture.asset(
+                'assets/icons/home.svg',
+                color: Colors.blue,
+              ),
+              Text('data'),
+            ],
+          ),
+          Row(
+            children: [Text('data')],
+          ),
+          Row(
+            children: [Text('data')],
+          ),
+        ],
+      ),
+    ));
+  }
+}

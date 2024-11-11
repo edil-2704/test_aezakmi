@@ -8,7 +8,7 @@ class EmployeesInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
+    
     TextEditingController commentsController = TextEditingController();
 
     return Scaffold(
