@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/finance_page.dart';
+import 'package:test_aezakmi/features/graphs/graphs_page.dart';
+import 'package:test_aezakmi/features/news/news_card.dart';
+import 'package:test_aezakmi/features/news/news_page.dart';
 import 'package:test_aezakmi/features/settings/presentation/pages/profile_page.dart';
+import 'package:test_aezakmi/features/settings/presentation/pages/settings_page.dart';
 import 'package:test_aezakmi/features/workers/presentation/pages/employee_page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -26,11 +30,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
     //локация
     FinancePage(),
     //Эпизоды
-    EmployeePage(),
+    GraphsPage(),
     //настройки
-    EmployeePage(),
+    NewsPage(),
 
-    ProfilePage()
+    FeedbackPage()
   ];
 
   @override

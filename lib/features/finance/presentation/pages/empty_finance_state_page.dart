@@ -50,7 +50,7 @@ class EmptyFinanceStatePage extends StatelessWidget {
         floatingActionButton: InkWell(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddWarningPage()));
+                MaterialPageRoute(builder: (context) => WarningPage()));
           },
           splashColor: Colors.transparent,
           splashFactory: NoSplash.splashFactory,

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:test_aezakmi/features/finance/presentation/pages/test.dart';
 import 'package:test_aezakmi/features/workers/presentation/pages/employee_page.dart';
 import 'package:test_aezakmi/features/workers/presentation/pages/saved_employee_page.dart';
 import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.dart';
@@ -62,7 +63,7 @@ class _FinancePageState extends State<FinancePage>
 
   Widget buildFloatingActionButton() {
     final pages = [
-      AddWarningPage(),
+      WarningPage(),
       AddBonusPage(),
       AddSalaryPage(),
     ];
@@ -113,9 +114,9 @@ class _FinancePageState extends State<FinancePage>
       body: TabBarView(
         controller: tabController,
         children: [
-          const BuildFinanceReprimand(),
+          BuildFinanceReprimand(),
           BuildFinanceBonus(text: getFormattedDate()),
-          const BuildFinanceSalary(),
+          ApartmentsPage(),
         ],
       ),
       floatingActionButton: buildFloatingActionButton(),
@@ -280,6 +281,248 @@ class AddSalaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Salary')),
+    );
+  }
+}
+
+/////
+
+class ApartmentsPage extends StatelessWidget {
+  const ApartmentsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: _buildEmployeeCards()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTitleSection() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Text(
+          'Финансы',
+          style: TextStyle(
+            fontSize: 34,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF252525),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF2253F6), Color(0xFF9DB4FF)],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Row(
+            children: [
+              const Icon(Icons.filter_alt, color: Colors.white, size: 16),
+              const SizedBox(width: 8),
+              const Text(
+                'Фильтры',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTabs() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildTab('Выговор'),
+        _buildTab('Премия'),
+        _buildTab('Зарплата', selected: true),
+      ],
+    );
+  }
+
+  Widget _buildTab(String label, {bool selected = false}) {
+    return Column(
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: selected ? Color(0xFF252525) : Color(0xFF818181),
+          ),
+        ),
+        if (selected)
+          Container(
+            margin: const EdgeInsets.only(top: 8),
+            height: 2,
+            width: 60,
+            color: Color(0xFF2253F6),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildEmployeeCards() {
+    return ListView(
+      children: const [
+        EmployeeCard(
+          name: 'Кудрявцев Владимир Андреевич',
+          jobTitle: 'ИТ-аналитик',
+          date: '20 января 2024',
+          salary: '100 000 ₽',
+        ),
+        EmployeeCard(
+          name: 'Колесников Даниил Фёдорович',
+          jobTitle: 'Сетевой администратор',
+          date: '20 января 2024',
+          salary: '80 000 ₽',
+        ),
+        EmployeeCard(
+          name: 'Попова Анастасия Вадимовна',
+          jobTitle: 'Сетевой инженер',
+          date: '20 января 2024',
+          salary: '95 000 ₽',
+        ),
+        EmployeeCard(
+          name: 'Соловьева София Олеговна',
+          jobTitle: 'Администратор сетей и компьютерных систем',
+          date: '20 января 2024',
+          salary: '95 000 ₽',
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      currentIndex: 1,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.people),
+          label: 'Сотрудники',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.attach_money),
+          label: 'Финансы',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_today),
+          label: 'График',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.article),
+          label: 'Новости',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: 'Настройки',
+        ),
+      ],
+      selectedItemColor: Color(0xFF2253F6),
+      unselectedItemColor: Color(0xFF818181),
+    );
+  }
+}
+
+class EmployeeCard extends StatelessWidget {
+  final String name;
+  final String jobTitle;
+  final String date;
+  final String salary;
+
+  const EmployeeCard(
+      {required this.name,
+      required this.jobTitle,
+      required this.date,
+      required this.salary,
+      super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(13),
+      ),
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.person, color: Color(0xFF2253F6)),
+                const SizedBox(width: 8),
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF252525),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                const Icon(Icons.circle, size: 4, color: Color(0xFF818181)),
+                const SizedBox(width: 8),
+                Text(
+                  jobTitle,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF818181),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                const Icon(Icons.circle, size: 4, color: Color(0xFF818181)),
+                const SizedBox(width: 8),
+                Text(
+                  date,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF818181),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                const Icon(Icons.circle, size: 4, color: Color(0xFF818181)),
+                const SizedBox(width: 8),
+                Text(
+                  salary,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF818181),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
