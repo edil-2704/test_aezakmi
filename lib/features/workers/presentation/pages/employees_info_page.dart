@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test_aezakmi/features/finance/presentation/pages/finance_page.dart';
 import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.dart';
 
 class EmployeesInfoPage extends StatelessWidget {
@@ -8,7 +9,6 @@ class EmployeesInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     TextEditingController commentsController = TextEditingController();
 
     return Scaffold(
@@ -39,25 +39,37 @@ class EmployeesInfoPage extends StatelessWidget {
         padding: EdgeInsets.all(16.r),
         child: Column(
           children: [
-            CommonEmployeeInfoCard(),
-            SizedBox(height: 20.h),
-            CommonEmployeeInfoCard(),
-            SizedBox(height: 20.h),
-            CommonEmployeeInfoCard(),
-            SizedBox(height: 20.h),
-            CommonEmployeeInfoCard(),
-            SizedBox(height: 20.h),
-            CommonEmployeeInfoCard(),
-            SizedBox(height: 20.h),
-            SizedBox(
-              height: 163.h,
-              child: CommonTextFieldForm(
-                hintText: 'Comments',
-                controller: commentsController,
-                maxLines: 5,
-              ),
+            Column(
+              children: [
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        EmployeeCard(
+                            name: 'name',
+                            jobTitle: 'jobTitle',
+                            date: 'date',
+                            salary: 'salary,'),
+                        SizedBox(
+                          height: 163.h,
+                          child: CommonTextFieldForm(
+                            hintText: 'Comments',
+                            controller: commentsController,
+                            maxLines: 5,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return SizedBox(height: 20.h);
+                  },
+                ),
+              ],
             ),
-            Spacer(),
             CustomTextButton(
               onPressed: () {},
               text: 'Save',

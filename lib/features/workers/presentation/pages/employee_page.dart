@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:test_aezakmi/features/finance/presentation/pages/finance_page.dart';
 import 'package:test_aezakmi/features/workers/presentation/pages/add_employee_page.dart';
+import 'package:test_aezakmi/features/workers/presentation/pages/employees_info_page.dart';
 
 class EmployeePage extends StatelessWidget {
   const EmployeePage({super.key});
@@ -21,18 +23,33 @@ class EmployeePage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          ListView.separated(
-            shrinkWrap: true,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return SizedBox(
-                height: 115.h,
-                child: CustomEmployeeCard(),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return SizedBox(height: 20.h);
-            },
+          Padding(
+            padding: EdgeInsets.all(16.r),
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EmployeesInfoPage(),
+                      ),
+                    );
+                  },
+                  child: EmployeeCard(
+                    name: 'Кудрявцев Владимир Андреевич',
+                    jobTitle: 'ИТ-аналитик',
+                    date: '20 января 2024',
+                    salary: '100 000 ₽',
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return SizedBox(height: 20.h);
+              },
+            ),
           ),
           Positioned(
             bottom: 10,
@@ -61,6 +78,7 @@ class EmployeePage extends StatelessWidget {
 
 class CustomEmployeeCard extends StatelessWidget {
   final Widget? svgPic;
+
   const CustomEmployeeCard({
     super.key,
     this.svgPic,

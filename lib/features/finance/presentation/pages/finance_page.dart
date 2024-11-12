@@ -297,87 +297,18 @@ class ApartmentsPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(child: _buildEmployeeCards()),
+          Expanded(child: BuildEmployeeCard()),
         ],
       ),
     );
   }
+}
 
-  Widget _buildTitleSection() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text(
-          'Финансы',
-          style: TextStyle(
-            fontSize: 34,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF252525),
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF2253F6), Color(0xFF9DB4FF)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Row(
-            children: [
-              const Icon(Icons.filter_alt, color: Colors.white, size: 16),
-              const SizedBox(width: 8),
-              const Text(
-                'Фильтры',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+class BuildEmployeeCard extends StatelessWidget {
+  const BuildEmployeeCard({super.key});
 
-  Widget _buildTabs() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildTab('Выговор'),
-        _buildTab('Премия'),
-        _buildTab('Зарплата', selected: true),
-      ],
-    );
-  }
-
-  Widget _buildTab(String label, {bool selected = false}) {
-    return Column(
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: selected ? Color(0xFF252525) : Color(0xFF818181),
-          ),
-        ),
-        if (selected)
-          Container(
-            margin: const EdgeInsets.only(top: 8),
-            height: 2,
-            width: 60,
-            color: Color(0xFF2253F6),
-          ),
-      ],
-    );
-  }
-
-  Widget _buildEmployeeCards() {
+  @override
+  Widget build(BuildContext context) {
     return ListView(
       children: const [
         EmployeeCard(
@@ -405,36 +336,6 @@ class ApartmentsPage extends StatelessWidget {
           salary: '95 000 ₽',
         ),
       ],
-    );
-  }
-
-  Widget _buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      currentIndex: 1,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.people),
-          label: 'Сотрудники',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.attach_money),
-          label: 'Финансы',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_today),
-          label: 'График',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.article),
-          label: 'Новости',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: 'Настройки',
-        ),
-      ],
-      selectedItemColor: Color(0xFF2253F6),
-      unselectedItemColor: Color(0xFF818181),
     );
   }
 }
