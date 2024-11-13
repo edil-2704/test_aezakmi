@@ -32,7 +32,6 @@ class _CommonTextFieldWidgetState extends State<CommonTextFieldWidget> {
       keyboardType: widget.textInputType,
       autocorrect: false,
       decoration: InputDecoration(
-          fillColor:  const Color(0xffF2F2F2),
           hintText: widget.hintText,
           prefixIcon: widget.prefixIcon,
           border: OutlineInputBorder(

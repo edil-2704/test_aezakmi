@@ -387,10 +387,15 @@ class ScheduleList extends StatelessWidget {
                 height: 54.h,
                 width: 358.w,
                 decoration: BoxDecoration(
-                  color: isHoliday
-                      ? const Color(0xFFE5FFE9)
-                      : const Color(0xFFF2F5F7),
+                  color: isHoliday ? Colors.green.shade100 : Colors.white,
                   borderRadius: BorderRadius.circular(13),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black,
+                      spreadRadius: 0.1,
+                      blurStyle: BlurStyle.outer,
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16),

@@ -2,62 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/test.dart';
-import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.dart';
 
 class EmptyFinanceStatePage extends StatelessWidget {
   const EmptyFinanceStatePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Финансы',
-            style: TextStyle(fontSize: 34, fontWeight: FontWeight.w700),
-          ),
-          actions: [
-            CustomTextButton(
-              height: 30.h,
-              icon: Icon(
-                Icons.filter_alt_outlined,
-                color: Colors.white,
-              ),
-              width: 90.w,
-              text: 'Filter',
-              onPressed: () {},
+    return Center(
+      child: Column(
+        children: [
+          BuildEmptyState(),
+          InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => WarningPage()));
+            },
+            splashColor: Colors.transparent,
+            splashFactory: NoSplash.splashFactory,
+            child: SvgPicture.asset(
+              'assets/icons/floating.svg',
             ),
-            SizedBox(width: 16),
-          ],
-          bottom: TabBar(
-            tabs: [
-              Tab(text: 'Выговор'),
-              Tab(text: 'Премия'),
-              Tab(text: 'Зарплата'),
-            ],
-            indicatorColor: Colors.blue,
-            labelColor: Colors.black,
           ),
-        ),
-        body: TabBarView(
-          children: [
-            BuildEmptyState(),
-            BuildEmptyState(),
-            BuildEmptyState(),
-          ],
-        ),
-        floatingActionButton: InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => WarningPage()));
-          },
-          splashColor: Colors.transparent,
-          splashFactory: NoSplash.splashFactory,
-          child: SvgPicture.asset(
-            'assets/icons/floating.svg',
-          ),
-        ),
+        ],
       ),
     );
   }

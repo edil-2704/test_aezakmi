@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_aezakmi/internal/commons/bottom_navbar.dart';
+import 'package:test_aezakmi/internal/dependencies/get_it.dart';
 
 void main() {
-  // configureDependencies();
+  configureDependencies();
   runApp(const MyApp());
 }
 

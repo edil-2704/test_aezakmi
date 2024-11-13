@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:test_aezakmi/internal/dependencies/get_it.config.dart';
 
 final getIt = GetIt.instance;
 
@@ -9,6 +10,6 @@ final getIt = GetIt.instance;
   asExtension: false, // default
   usesNullSafety: true,
 )
-// void configureDependencies() => $initGetIt(getIt);
+void configureDependencies() => $initGetIt(getIt);
 
 final locator = GetIt.instance;

@@ -1,10 +1,22 @@
+
+
 part of 'employee_bloc.dart';
 
-sealed class EmployeeState extends Equatable {
-  const EmployeeState();
-  
-  @override
-  List<Object> get props => [];
+@immutable
+abstract class EmployeeState {}
+
+class EmployeeInitialState extends EmployeeState {}
+
+class EmployeeLoadingState extends EmployeeState {}
+
+class EmployeeLoadedState extends EmployeeState {
+  final List<Employee> employees;
+
+  EmployeeLoadedState({required this.employees});
 }
 
-final class EmployeeInitial extends EmployeeState {}
+class EmployeeErrorState extends EmployeeState {
+  final String error;
+
+  EmployeeErrorState({required this.error});
+}
