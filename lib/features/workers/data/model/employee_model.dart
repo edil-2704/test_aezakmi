@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 class Employee {
   final String id;
-  final String name;
-  final String jobTitle;
+  late final String name;
+  late final String jobTitle;
   final String dateOfHire;
-  final String salary;
+  late final String salary;
 
   Employee({
     required this.id,
@@ -26,6 +26,8 @@ class Employee {
       salary: json['salary'] as String,
     );
   }
+
+  set phone(String phone) {}
 }
 
 

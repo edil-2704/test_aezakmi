@@ -11,7 +11,9 @@ class EmptyFinanceStatePage extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          BuildEmptyState(),
+          Expanded(
+            child: BuildEmptyState(),
+          ),
           InkWell(
             onTap: () {
               Navigator.push(context,
@@ -38,8 +40,8 @@ class BuildEmptyState extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            top: 200,
-            right: 100,
+            top: 80.h,
+            right: 100.w,
             child: Image.asset(
               'assets/images/add_people.png',
               height: 142.h,
@@ -47,16 +49,29 @@ class BuildEmptyState extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 300,
-            right: 165,
-            child: Text('Тут пока пусто'),
+            bottom: 300.h,
+            right: 150.w,
+            child: Text(
+              'Тут пока пусто',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           Positioned(
-            bottom: 235,
-            right: 125,
-            child: SizedBox(
-              child: Text(
-                  'Добавьте сотрудников,\nчтобы обеспечить более\n удобный учет'),
+            bottom: 230.h,
+            right: 125.w,
+            child: Wrap(
+              children: [
+                Text(
+                  'Добавьте сотрудников, \nчтобы обеспечить \nболее удобный учет',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff818181)),
+                ),
+              ],
             ),
           ),
         ],

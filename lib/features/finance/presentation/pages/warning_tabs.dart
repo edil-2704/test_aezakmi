@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_aezakmi/features/finance/presentation/logic/bloc/finance_bloc.dart';
@@ -10,7 +11,9 @@ class WarningsTab extends StatelessWidget {
     return BlocBuilder<FinanceBloc, FinanceState>(
       builder: (context, state) {
         if (state is FinanceLoadingState) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CupertinoActivityIndicator(),
+          );
         }
 
         if (state is FinanceLoadedWarningsState) {
@@ -34,7 +37,7 @@ class WarningsTab extends StatelessWidget {
         if (state is FinanceErrorState) {
           return const EmptyFinanceStatePage();
         }
-        return SizedBox();
+        return const Center(child: EmptyFinanceStatePage());
       },
     );
   }

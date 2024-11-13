@@ -57,12 +57,12 @@ class _EmployeePageState extends State<EmployeePage> {
                         final employee = state.employees[index];
                         return InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EmployeesInfoPage(),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => EmployeesInfoPage(),
+                            //   ),
+                            // );
                           },
                           child: EmployeeCard(
                             name: employee.name,

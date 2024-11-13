@@ -9,8 +9,6 @@ import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.d
 import 'package:test_aezakmi/internal/dependencies/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-
 class FinancePage extends StatefulWidget {
   const FinancePage({super.key});
 
@@ -115,7 +113,7 @@ class _FinancePageState extends State<FinancePage>
             children: [
               WarningsTab(),
               BonusesTab(),
-              SalariesTab(),
+              SalariesTabs(),
             ],
           ),
           floatingActionButton: InkWell(
@@ -140,6 +138,3 @@ class _FinancePageState extends State<FinancePage>
         ));
   }
 }
-
-
-

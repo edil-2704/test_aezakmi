@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test_aezakmi/features/finance/presentation/pages/filter_plus_page.dart';
 import 'package:test_aezakmi/internal/commons/bottom_navbar.dart';
 import 'package:test_aezakmi/internal/dependencies/get_it.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: BottomNavBar(),
+            home: FilterPlusPage(),
           );
         });
   }

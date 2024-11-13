@@ -24,6 +24,18 @@ class FinanceRepositoryImpl implements FinanceRepository {
         date: '2024-11-01',
         name: 'Fedor Ivanov',
       ),
+      Warning(
+        id: '3',
+        details: 'Missed team meeting',
+        date: '2024-11-01',
+        name: 'Anton Ivanov',
+      ),
+      Warning(
+        id: '4',
+        details: 'Missed team meeting',
+        date: '2024-11-01',
+        name: 'Andrei Ivanov',
+      ),
     ];
   }
 
@@ -40,8 +52,11 @@ class FinanceRepositoryImpl implements FinanceRepository {
   Future<List<Salary>> fetchSalaries() async {
     await Future.delayed(Duration(seconds: 1));
     return [
-      Salary(id: '1', amount: '70000', date: '2024-10-30'),
-      Salary(id: '2', amount: '75000', date: '2024-11-30'),
+      Salary(id: '1', amount: '70000', date: '2024-08-30'),
+      Salary(id: '2', amount: '75000', date: '2024-09-30'),
+      Salary(id: '3', amount: '75000', date: '2024-10-30'),
+      Salary(id: '4', amount: '75000', date: '2024-11-30'),
+      Salary(id: '5', amount: '75000', date: '2024-12-30'),
     ];
   }
 }

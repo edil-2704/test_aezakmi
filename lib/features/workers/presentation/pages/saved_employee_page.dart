@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test_aezakmi/features/workers/presentation/pages/employees_info_page.dart';
 import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.dart';
 
 class SavedEmployeePage extends StatelessWidget {
