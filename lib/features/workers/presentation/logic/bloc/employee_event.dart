@@ -12,3 +12,10 @@ class AddEmployee extends EmployeeEvent {
 
   AddEmployee(this.employee);
 }
+
+class SaveEmployeeEvent extends EmployeeEvent {
+    final Employee employee;
+
+  SaveEmployeeEvent({required this.employee});
+
+}

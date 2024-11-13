@@ -5,49 +5,17 @@ import 'package:test_aezakmi/features/workers/data/model/employee_model.dart';
 abstract class EmployeeRepository {
   Future<List<Employee>> getEmployees();
   Future<void> addEmployee(Employee employee);
+
+  Future<void> saveEmployee({
+    required String name,
+    required String jobTitle,
+    required String salary,
+    required String phone,
+    required String date,
+    required String comments,
+  });
 }
 
-class EmployeeRepositoryImpl implements EmployeeRepository {
-  @override
-  Future<List<Employee>> getEmployees() async {
-    // Simulate fetching data
-    await Future.delayed(const Duration(seconds: 2));
-    return [
-      Employee(
-        id: '1',
-        name: 'Кудрявцев Владимир Андреевич',
-        jobTitle: 'ИТ-аналитик',
-        dateOfHire: '20 января 2024',
-        salary: '100 000 ₽',
-      ),
-      Employee(
-        id: '1',
-        name: 'Кудрявцев Владимир Андреевич',
-        jobTitle: 'ИТ-аналитик',
-        dateOfHire: '20 января 2024',
-        salary: '100 000 ₽',
-      ),
-      Employee(
-        id: '1',
-        name: 'Кудрявцев Anton Андреевич',
-        jobTitle: 'ИТ-аналитик',
-        dateOfHire: '20 января 2024',
-        salary: '100 000 ₽',
-      ),
-      Employee(
-        id: '1',
-        name: 'Кудрявцев Владимир Андреевич',
-        jobTitle: 'ИТ-аналитик',
-        dateOfHire: '20 января 2024',
-        salary: '100 000 ₽',
-      ),
-      // Add more dummy employees if needed
-    ];
-  }
-
-  @override
-  Future<void> addEmployee(Employee employee) async {
-    // Code to save employee, could be to a database or API
-    await Future.delayed(const Duration(seconds: 1));
-  }
+abstract class EmployeeSaveRepository {
+  
 }

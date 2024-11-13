@@ -25,7 +25,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<Widget> screens = [
     //персонажи
-    EmployeePage2(),
+    EmployeePage(),
     //локация
     FinancePage(),
     //Эпизоды

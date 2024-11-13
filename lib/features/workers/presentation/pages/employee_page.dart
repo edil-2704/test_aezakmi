@@ -1,12 +1,30 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:test_aezakmi/features/finance/presentation/pages/finance_page.dart';
+import 'package:test_aezakmi/features/workers/presentation/logic/bloc/employee_bloc.dart';
 import 'package:test_aezakmi/features/workers/presentation/pages/add_employee_page.dart';
+import 'package:test_aezakmi/features/workers/presentation/pages/custom_empty_state.dart';
 import 'package:test_aezakmi/features/workers/presentation/pages/employees_info_page.dart';
+import 'package:test_aezakmi/features/workers/presentation/widget/custom_employee_card.dart';
+import 'package:test_aezakmi/internal/dependencies/get_it.dart';
 
-class EmployeePage extends StatelessWidget {
+class EmployeePage extends StatefulWidget {
   const EmployeePage({super.key});
+
+  @override
+  State<EmployeePage> createState() => _EmployeePageState();
+}
+
+class _EmployeePageState extends State<EmployeePage> {
+  final EmployeeBloc bloc = getIt<EmployeeBloc>();
+
+  @override
+  void initState() {
+    bloc.add(FetchEmployees());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,33 +42,51 @@ class EmployeePage extends StatelessWidget {
       body: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.all(16.r),
-            child: ListView.separated(
-              shrinkWrap: true,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EmployeesInfoPage(),
-                      ),
+              padding: EdgeInsets.all(16.r),
+              child: BlocBuilder(
+                bloc: bloc,
+                builder: (context, state) {
+                  if (state is EmployeeLoadingState) {
+                    return const Center(
+                      child: CupertinoActivityIndicator(),
                     );
-                  },
-                  child: EmployeeCard(
-                    name: 'Кудрявцев Владимир Андреевич',
-                    jobTitle: 'ИТ-аналитик',
-                    date: '20 января 2024',
-                    salary: '100 000 ₽',
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return SizedBox(height: 20.h);
-              },
-            ),
-          ),
+                  } else if (state is EmployeeLoadedState) {
+                    return ListView.separated(
+                      itemCount: state.employees.length,
+                      itemBuilder: (context, index) {
+                        final employee = state.employees[index];
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EmployeesInfoPage(),
+                              ),
+                            );
+                          },
+                          child: EmployeeCard(
+                            name: employee.name,
+                            jobTitle: employee.jobTitle,
+                            salary: employee.salary,
+                            date: employee.dateOfHire,
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 20),
+                    );
+                  } else if (state is EmployeeErrorState) {
+                    return Center(child: Text('Error: ${state.error}'));
+                  }
+                  return Center(
+                    child: EmptyStatePage(
+                      pathToPic: 'pathToPic',
+                      appBarTittle: 'appBarTittle',
+                      actions: [Icon(Icons.ac_unit)],
+                    ),
+                  );
+                },
+              )),
           Positioned(
             bottom: 10,
             right: 10,
@@ -73,45 +109,5 @@ class EmployeePage extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class CustomEmployeeCard extends StatelessWidget {
-  final Widget? svgPic;
-
-  const CustomEmployeeCard({
-    super.key,
-    this.svgPic,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        child: Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              SvgPicture.asset(
-                'assets/icons/home.svg',
-                color: Colors.blue,
-              ),
-              Text('data'),
-            ],
-          ),
-          Row(
-            children: [
-              Text('data'),
-            ],
-          ),
-          Row(
-            children: [
-              Text('data'),
-            ],
-          ),
-        ],
-      ),
-    ));
   }
 }

@@ -1,4 +1,4 @@
-
+// employee_state.dart
 
 part of 'employee_bloc.dart';
 
@@ -14,6 +14,8 @@ class EmployeeLoadedState extends EmployeeState {
 
   EmployeeLoadedState({required this.employees});
 }
+
+class EmployeeSaved extends EmployeeState {}
 
 class EmployeeErrorState extends EmployeeState {
   final String error;
