@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/finance_page.dart';
-import 'package:test_aezakmi/features/graphs/graphs_page.dart';
+import 'package:test_aezakmi/features/schedule/presentation/pages/schedule_page.dart';
+import 'package:test_aezakmi/features/schedule/presentation/pages/test_grah.dart';
 import 'package:test_aezakmi/features/news/news_page.dart';
-import 'package:test_aezakmi/features/settings/presentation/pages/settings_page.dart';
-import 'package:test_aezakmi/features/workers/presentation/pages/add_employee_page.dart';
-import 'package:test_aezakmi/features/workers/presentation/pages/employee_page.dart';
+import 'package:test_aezakmi/features/settings/presentation/pages/profile_page.dart';
+import 'package:test_aezakmi/features/settings/presentation/pages/feedback_page.dart';
+import 'package:test_aezakmi/features/employee/presentation/pages/add_employee_page.dart';
+import 'package:test_aezakmi/features/employee/presentation/pages/employee_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -33,7 +35,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     //настройки
     NewsPage(),
 
-    FeedbackPage()
+    ProfilePage()
   ];
 
   @override

@@ -1,68 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.dart';
+import 'package:test_aezakmi/features/news/data/model/news_model.dart';
+import 'package:test_aezakmi/features/news/news_card.dart';
+import 'package:test_aezakmi/internal/constants/theme_helper/app_colors.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final url = imagesLocation.getNextImageUrl();
+    final texts = textLocation.getNextText();
+
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.mainBackground,
         title: const Text('Новости'),
         elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: [
-          BuildCard(
-            imagePath: 'assets/images/icon.png',
-            title:
-                'Лидерство в IT: Как эффективно руководить командой разработчиков и IT-специалистов.',
-            description:
-                'В современном мире информационных технологий, лидерство играет важную роль в успешной работе...',
-            date: 'Сегодня',
-            time: '13:00',
-          ),
-          BuildCard(
-            imagePath: 'assets/images/icon.png',
-            title:
-                'Стратегическое управление в IT: Как разработать и реализовать стратегию для компании.',
-            description:
-                'Стратегическое управление в IT является неотъемлемой частью успеха любой компании в сфере информационных...',
-            date: '30 января',
-            time: '15:00',
-          ),
-          BuildCard(
-            imagePath: 'assets/images/icon.png',
-            title:
-                'Управление проектами: Как эффективно планировать, организовывать и контролировать проекты в IT сфере.',
-            description:
-                'Перед тем как приступить к управлению проектами, важно понять основные концепции и термины, связанные...',
-            date: '20 января',
-            time: '13:00',
-          ),
-          BuildCard(
-            imagePath: 'assets/images/icon.png',
-            title:
-                'Инновации в IT: Как стимулировать инновационное мышление и развивать новые технологические решения.',
-            description:
-                'Инновации являются движущей силой в сфере информационных технологий. Они позволяют компаниям...',
-            date: '15 января',
-            time: '15:00',
-          ),
-          BuildCard(
-            imagePath: 'assets/images/icon.png',
-            title:
-                'Управление изменениями в IT: Как эффективно внедрять изменения в IT компании и минимизировать сопротивление сотрудников.',
-            description:
-                'Управление изменениями является неотъемлемой частью развития и успеха IT компаний. Внедрение изменений мою...',
-            date: '10 января',
-            time: '11:00',
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: ListView.separated(
+          itemCount: url.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => NewsCardPage()));
+              },
+              child: BuildCard(
+                  imagePath: url,
+                  title: texts,
+                  description: texts,
+                  date: 'date',
+                  time: 'time'),
+            );
+          },
+          separatorBuilder: (context, index) => SizedBox(height: 20.h),
+        ),
       ),
     );
   }

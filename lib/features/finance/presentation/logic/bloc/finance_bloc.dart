@@ -13,11 +13,15 @@ part 'finance_state.dart';
 @injectable
 class FinanceBloc extends Bloc<FinanceEvent, FinanceState> {
   final FinanceUseCase financeUseCase;
+  final GetBonusesByDateAndId getBonusesByDateAndId;
 
-  FinanceBloc({required this.financeUseCase}) : super(FinanceInitialState()) {
+  FinanceBloc(
+      {required this.financeUseCase, required this.getBonusesByDateAndId})
+      : super(FinanceInitialState()) {
     on<FetchWarnings>(_onFetchWarnings);
     on<FetchBonuses>(_onFetchBonuses);
     on<FetchSalaries>(_onFetchSalaries);
+    on<FetchBonusesByDateAndId>(_onFetchBonusAndId);
   }
 
   Future<void> _onFetchWarnings(
@@ -50,6 +54,20 @@ class FinanceBloc extends Bloc<FinanceEvent, FinanceState> {
     try {
       final salaries = await financeUseCase.getSalaries();
       emit(FinanceLoadedSalariesState(salaries: salaries));
+    } catch (e) {
+      emit(FinanceErrorState(
+          error: CatchException.convertException(e).toString()));
+    }
+  }
+
+  Future<void> _onFetchBonusAndId(
+      FetchBonusesByDateAndId event, Emitter<FinanceState> emit) async {
+    emit(FinanceLoadingState());
+    try {
+    
+      final bonuses =
+          await getBonusesByDateAndId(event.date, event.id);
+      emit(FinanceLoadedBonusesByIdState(bonuses: bonuses));
     } catch (e) {
       emit(FinanceErrorState(
           error: CatchException.convertException(e).toString()));

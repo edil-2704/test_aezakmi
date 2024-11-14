@@ -11,6 +11,7 @@ class FilterPlusPage extends StatefulWidget {
 class _FilterPlusPageState extends State<FilterPlusPage> {
   int _selectedTabIndex = 0;
   bool _isFilterChipVisible = true;
+
   DateTime? _selectedDate; // Stores the selected date
 
   final List<String> _tabs = ['Выговор', 'Премия', 'Зарплата'];

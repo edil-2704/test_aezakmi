@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:test_aezakmi/features/finance/presentation/pages/test.dart';
 
 class EmptyFinanceStatePage extends StatelessWidget {
   const EmptyFinanceStatePage({super.key});
@@ -13,17 +11,6 @@ class EmptyFinanceStatePage extends StatelessWidget {
         children: [
           Expanded(
             child: BuildEmptyState(),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => WarningPage()));
-            },
-            splashColor: Colors.transparent,
-            splashFactory: NoSplash.splashFactory,
-            child: SvgPicture.asset(
-              'assets/icons/floating.svg',
-            ),
           ),
         ],
       ),

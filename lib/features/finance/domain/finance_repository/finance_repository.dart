@@ -4,6 +4,7 @@ import 'package:test_aezakmi/features/finance/data/models/warning_model.dart';
 
 abstract class FinanceRepository {
   Future<List<Warning>> fetchWarnings();
-  Future<List<Bonus>> fetchBonuses();
+  Future<List<BonusModel>> fetchBonuses();
   Future<List<Salary>> fetchSalaries();
+  Future<List<BonusModel>> getBonusesByDateAndId(DateTime date, int employeeId);
 }

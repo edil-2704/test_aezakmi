@@ -1,25 +1,33 @@
-class Bonus {
-  final String id;
-  final String amount;
-  final String date;
+class BonusModel {
+  final int id;
+  final String description;
+  final double amount;
+  final DateTime date;
 
-  Bonus({
+  BonusModel({
     required this.id,
+    required this.description,
     required this.amount,
     required this.date,
   });
 
-  factory Bonus.fromJson(Map<String, dynamic> json) {
-    return Bonus(
-      id: json['id'] as String,
-      amount: json['amount'] as String,
-      date: json['date'] as String,
+  // Factory constructor to create a Bonus from JSON
+  factory BonusModel.fromJson(Map<String, dynamic> json) {
+    return BonusModel(
+      id: json['id'],
+      description: json['description'],
+      amount: json['amount'].toDouble(),
+      date: DateTime.parse(json['date']),
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'amount': amount,
-        'date': date,
-      };
+  // Convert Bonus to JSON if needed for local storage or other purposes
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'description': description,
+      'amount': amount,
+      'date': date.toIso8601String(),
+    };
+  }
 }

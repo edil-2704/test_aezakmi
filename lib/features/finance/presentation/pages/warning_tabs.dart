@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_aezakmi/features/finance/presentation/logic/bloc/finance_bloc.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/empty_finance_state_page.dart';
-import 'package:test_aezakmi/features/workers/presentation/widget/custom_employee_card.dart';
+import 'package:test_aezakmi/features/employee/presentation/widget/custom_employee_card.dart';
 
 class WarningsTab extends StatelessWidget {
   @override

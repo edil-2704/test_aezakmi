@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:test_aezakmi/internal/constants/theme_helper/app_colors.dart';
+import 'package:test_aezakmi/features/settings/presentation/pages/feedback_page.dart';
+import 'package:test_aezakmi/features/settings/presentation/pages/profile_info_page.dart';
+import 'package:test_aezakmi/features/settings/presentation/pages/profile_settings.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -13,54 +14,91 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: DecoratedBox(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.mainBlue,
-              AppColors.mainGreen,
-            ],
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  // Действие при нажатии на первую кнопку
-                },
-                child: const Text('t.profile.aboutCompanyTitle'),
-              ),
-              const SizedBox(height: 20),
-              TextButton(
-                onPressed: () {
-                  // Действие при нажатии на вторую кнопку
-                },
-                child: const Text('profile'),
-              ),
-              const SizedBox(height: 20),
-              TextButton(
-                onPressed: () {
-                  // Действие при нажатии на третью кнопку
-                },
-                child: const Text(''),
-              ),
-              const SizedBox(height: 20),
-              // Positioned можно использовать только внутри Stack.
-              const Positioned(
-                top: 50.0,
-                left: 0.0,
-                child: Text(''),
-              ),
-            ],
+      backgroundColor: const Color(0xFFF2F5F7),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text(
+          'Настройки',
+          style: TextStyle(
+            fontSize: 34,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF252525),
           ),
         ),
       ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            CircleAvatar(
+              radius: 55,
+              backgroundImage:
+                  AssetImage('assets/images/news_1.png'), // Image asset
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'Анна Иванова',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF252525),
+              ),
+            ),
+            const SizedBox(height: 40),
+            ChangePagesTile(
+              title: 'Настройка профиля',
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfileSettings()));
+              },
+            ),
+            ChangePagesTile(
+              title: 'Обратная связь',
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FeedbackPage()));
+              },
+            ),
+            ChangePagesTile(
+              title: 'Информация',
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfileInfoPage()));
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ChangePagesTile extends StatelessWidget {
+  final String title;
+  final Function() onTap;
+  const ChangePagesTile({super.key, required this.title, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          title: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFF252525),
+            ),
+          ),
+          trailing: const Icon(Icons.chevron_right, color: Color(0xFF818181)),
+          onTap: onTap,
+        ),
+        const Divider(height: 1, color: Colors.grey),
+      ],
     );
   }
 }

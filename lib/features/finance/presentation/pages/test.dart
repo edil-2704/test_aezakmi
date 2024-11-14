@@ -1,64 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.dart';
-
-class AddWarningPage extends StatelessWidget {
-  const AddWarningPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: const BackButton(),
-        title: const Text('Добавить выговор'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            BuildInputField(
-              hint: 'Сотрудник',
-              maxLines: 1,
-              isNavigatable: true,
-            ),
-            const SizedBox(height: 12),
-            BuildInputField(
-              hint: 'Комментарий',
-              maxLines: 1,
-              isNavigatable: true,
-            ),
-            const SizedBox(height: 12),
-            BuildInputField(
-              hint: 'Комментарий',
-              maxLines: 1,
-              isNavigatable: true,
-            ),
-            const SizedBox(height: 12),
-            BuildInputField(
-              hint: 'Комментарий',
-              maxLines: 1,
-              isNavigatable: true,
-            ),
-            const SizedBox(height: 12),
-            BuildInputField(
-              hint: 'Комментарий',
-              maxLines: 5,
-              isNavigatable: true,
-            ),
-            const Spacer(),
-            CustomTextButton(
-              onPressed: () {},
-              text: 'Сохранить',
-              height: 62.h,
-              width: 358.w,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+import 'package:test_aezakmi/features/employee/presentation/widget/text_buttons.dart';
+import 'package:test_aezakmi/features/schedule/presentation/pages/schedule_page.dart';
+import 'package:test_aezakmi/features/schedule/presentation/pages/test_grah.dart';
 
 class BuildInputField extends StatefulWidget {
   final String hint;
@@ -292,83 +237,6 @@ class AddGraphPage extends StatelessWidget {
   }
 }
 
-class EditChartPage extends StatelessWidget {
-  const EditChartPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: const BackButton(),
-        title: const Text('Редактировать график'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.delete, color: Colors.red),
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            BuildInputField(
-              hint: 'Сотрудник',
-              maxLines: 1,
-              isNavigatable: true,
-              initialValue: 'Кудрявцев Владимир Андреевич',
-            ),
-            const SizedBox(height: 12),
-            BuildInputField(
-              hint: 'Рабочий период',
-              maxLines: 1,
-              isNavigatable: true,
-              initialValue: '13 января 2023 - 17 февраля 2023',
-            ),
-            const SizedBox(height: 12),
-            const Text('Рабочее время',
-                style: TextStyle(color: Color(0xFF818181))),
-            Row(
-              children: [
-                Flexible(
-                  child: BuildInputField(
-                    hint: 'с',
-                    maxLines: 1,
-                    isNavigatable: false,
-                    initialValue: '08:00',
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Flexible(
-                  child: BuildInputField(
-                    hint: 'до',
-                    maxLines: 1,
-                    isNavigatable: false,
-                    initialValue: '18:00',
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            BuildInputField(
-              hint: 'Выходной',
-              maxLines: 1,
-              isNavigatable: true,
-              initialValue: '18 января 2023 - 19 февраля 2023',
-            ),
-            const Spacer(),
-            CustomTextButton(
-              onPressed: () {},
-              text: 'Сохранить',
-              height: 62.h,
-              width: 358.w,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 // class BuildInputField2 extends StatefulWidget {
 //   final String hint;

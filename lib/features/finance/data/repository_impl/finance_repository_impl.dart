@@ -40,11 +40,21 @@ class FinanceRepositoryImpl implements FinanceRepository {
   }
 
   @override
-  Future<List<Bonus>> fetchBonuses() async {
+  Future<List<BonusModel>> fetchBonuses() async {
     await Future.delayed(Duration(seconds: 1));
     return [
-      Bonus(id: '1', amount: '5000', date: '2024-10-10'),
-      Bonus(id: '2', amount: '3000', date: '2024-11-01'),
+      BonusModel(
+        id: 1,
+        amount: 6000.0,
+        date: DateTime.now(),
+        description: 'Overslept',
+      ),
+      BonusModel(
+        id: 2,
+        amount: 3000.0,
+        date: DateTime.now(),
+        description: 'Lost control',
+      ),
     ];
   }
 
@@ -57,6 +67,44 @@ class FinanceRepositoryImpl implements FinanceRepository {
       Salary(id: '3', amount: '75000', date: '2024-10-30'),
       Salary(id: '4', amount: '75000', date: '2024-11-30'),
       Salary(id: '5', amount: '75000', date: '2024-12-30'),
+    ];
+  }
+
+  @override
+  Future<List<BonusModel>> getBonusesByDateAndId(
+      DateTime date, int employeeId) async {
+    await Future.delayed(Duration(seconds: 2));
+    return [
+      BonusModel(
+        id: 1,
+        description: 'New Lost',
+        amount: 5000,
+        date: date,
+      ),
+      BonusModel(
+        id: 2,
+        description: 'New Lost',
+        amount: 5000,
+        date: date,
+      ),
+      BonusModel(
+        id: 3,
+        description: 'New Lost',
+        amount: 5000,
+        date: date,
+      ),
+      BonusModel(
+        id: 4,
+        description: 'New Lost',
+        amount: 5000,
+        date: date,
+      ),
+      BonusModel(
+        id: 5,
+        description: 'New Lost',
+        amount: 5000,
+        date: date,
+      ),
     ];
   }
 }

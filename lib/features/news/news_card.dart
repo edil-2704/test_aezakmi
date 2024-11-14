@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test_aezakmi/features/news/data/model/news_model.dart';
+import 'package:test_aezakmi/internal/constants/theme_helper/app_colors.dart';
 
 class NewsCardPage extends StatelessWidget {
   const NewsCardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final url = imagesLocation.getNextImageUrl();
+    final texts = textLocation.getNextText();
+
     return Scaffold(
       extendBodyBehindAppBar: true,
+      backgroundColor: AppColors.mainBackground,
       body: ListView(
         children: [
           Stack(
@@ -15,7 +21,7 @@ class NewsCardPage extends StatelessWidget {
             alignment: Alignment.topLeft,
             children: [
               Image.asset(
-                'assets/images/icon.png',
+                url,
                 width: double.infinity,
                 height: 411.h,
                 fit: BoxFit.cover,
@@ -24,6 +30,7 @@ class NewsCardPage extends StatelessWidget {
                 left: 16,
                 top: 40,
                 child: BackButton(
+                  color: Colors.white,
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -40,9 +47,7 @@ class NewsCardPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(66.0),
                       image: const DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/images/vector.png',
-                        ),
+                        image: AssetImage('assets/images/news_1.png'),
                       ),
                     ),
                   ),

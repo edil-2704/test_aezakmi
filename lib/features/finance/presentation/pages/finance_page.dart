@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_aezakmi/features/finance/presentation/logic/bloc/finance_bloc.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/bonus_tab.dart';
+import 'package:test_aezakmi/features/finance/presentation/pages/filter_plus_page.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/salary_tabs.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/warning_tabs.dart';
-import 'package:test_aezakmi/features/workers/presentation/widget/text_buttons.dart';
+import 'package:test_aezakmi/features/employee/presentation/widget/text_buttons.dart';
+import 'package:test_aezakmi/internal/constants/theme_helper/app_colors.dart';
 import 'package:test_aezakmi/internal/dependencies/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +24,7 @@ class _FinancePageState extends State<FinancePage>
   final FinanceBloc bloc = getIt<FinanceBloc>();
   DateTime? pickedDate;
 
-  Future<void> pickDate(BuildContext context) async {
+  Future<void> _pickDate(BuildContext context) async {
     DateTime? date = await showDatePicker(
       context: context,
       firstDate: DateTime(2000),
@@ -39,12 +41,6 @@ class _FinancePageState extends State<FinancePage>
     if (date != null) {
       setState(() => pickedDate = date);
     }
-  }
-
-  String getFormattedDate() {
-    return pickedDate == null
-        ? 'Выберите дату'
-        : '${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}';
   }
 
   @override
@@ -82,6 +78,7 @@ class _FinancePageState extends State<FinancePage>
         value: bloc,
         child: Scaffold(
           appBar: AppBar(
+            backgroundColor: AppColors.mainBackground,
             title: const Text(
               'Финансы',
               style: TextStyle(fontSize: 34, fontWeight: FontWeight.w700),
@@ -93,7 +90,9 @@ class _FinancePageState extends State<FinancePage>
                     const Icon(Icons.filter_alt_outlined, color: Colors.white),
                 width: 90.w,
                 text: 'Filter',
-                onPressed: () => pickDate(context),
+                onPressed: () {
+                  return _pickDate;
+                },
               ),
               const SizedBox(width: 16),
             ],
@@ -112,7 +111,9 @@ class _FinancePageState extends State<FinancePage>
             controller: _tabController,
             children: [
               WarningsTab(),
-              BonusesTab(),
+              BonusesTab(
+                labelText: pickedDate.toString(),
+              ),
               SalariesTabs(),
             ],
           ),

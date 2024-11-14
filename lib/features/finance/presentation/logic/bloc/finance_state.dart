@@ -16,9 +16,15 @@ class FinanceLoadedWarningsState extends FinanceState {
 }
 
 class FinanceLoadedBonusesState extends FinanceState {
-  final List<Bonus> bonuses;
+  final List<BonusModel> bonuses;
 
   FinanceLoadedBonusesState({required this.bonuses});
+}
+
+class FinanceLoadedBonusesByIdState extends FinanceState {
+  final List<BonusModel> bonuses;
+
+  FinanceLoadedBonusesByIdState({required this.bonuses});
 }
 
 class FinanceLoadedSalariesState extends FinanceState {
