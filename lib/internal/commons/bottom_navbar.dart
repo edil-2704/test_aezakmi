@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/finance_page.dart';
-import 'package:test_aezakmi/features/schedule/presentation/pages/schedule_page.dart';
+import 'package:test_aezakmi/features/schedule/presentation/pages/graphs_page.dart';
 import 'package:test_aezakmi/features/schedule/presentation/pages/test_grah.dart';
 import 'package:test_aezakmi/features/news/news_page.dart';
 import 'package:test_aezakmi/features/settings/presentation/pages/profile_page.dart';

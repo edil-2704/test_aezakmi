@@ -11,5 +11,7 @@ abstract class AppColors {
   static const Color calendarPicker = Color(0xffE8DEF8);
   static const Color mainWhite = Color(0xFFFFFFFF);
   static const Color mainBackground = Color(0xFFF2F5F7);
-  static const Color bottomNavDark = Color(0xFF152A3A);
+  static const Color darkGradient = Color(0xFF152A3A);
+  static const Color firstGradient = Color(0xff2253F6);
+  static const Color secondGradient = Color(0xff9DB4FF);
 }

@@ -1,24 +1,20 @@
-import 'package:test_aezakmi/features/schedule/data/models/schedule_model.dart';
 
-abstract class ScheduleEvent {}
+part of 'episodes_bloc.dart';
 
-class LoadSchedules extends ScheduleEvent {
-  final DateTime date;
-  LoadSchedules(this.date);
+sealed class ScheduleEvent {}
+
+class GetAllSchedule extends ScheduleEvent {
+  final int page;
+  
+
+  GetAllSchedule({
+    required this.page,
+
+  });
 }
 
-class AddSchedule extends ScheduleEvent {
-  final ScheduleModel schedule;
-  AddSchedule(this.schedule);
-}
+class GetAllSchedulesById extends ScheduleEvent {
+  final int id;
 
-class UpdateSchedule extends ScheduleEvent {
-  final ScheduleModel schedule;
-  UpdateSchedule(this.schedule);
-}
-
-class DeleteSchedule extends ScheduleEvent {
-  final String employeeName;
-  final DateTime date;
-  DeleteSchedule(this.employeeName, this.date);
+  GetAllSchedulesById({required this.id});
 }

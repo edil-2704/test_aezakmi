@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:test_aezakmi/features/splash_page.dart';
 import 'package:test_aezakmi/internal/commons/bottom_navbar.dart';
 import 'package:test_aezakmi/internal/constants/theme_helper/app_colors.dart';
 import 'package:test_aezakmi/internal/dependencies/get_it.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
               ),
               useMaterial3: true,
             ),
-            home: BottomNavBar(),
+            home: SplashPage(),
           );
         });
   }

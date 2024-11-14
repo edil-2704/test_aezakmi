@@ -1,44 +1,43 @@
 import 'package:injectable/injectable.dart';
 import 'package:test_aezakmi/features/schedule/data/models/schedule_model.dart';
 import 'package:test_aezakmi/features/schedule/domain/repository/schedule_repository.dart';
-
 @injectable
-class GetSchedulesForDateUseCase {
+class GetSchedules {
   final ScheduleRepository repository;
 
-  GetSchedulesForDateUseCase(this.repository);
+  GetSchedules(this.repository);
 
   Future<List<ScheduleModel>> call(DateTime date) {
-    return repository.getSchedulesForDate(date);
+    return repository.getSchedules(date);
   }
 }
 @injectable
-class AddScheduleUseCase {
+class AddSchedule {
   final ScheduleRepository repository;
 
-  AddScheduleUseCase(this.repository);
+  AddSchedule(this.repository);
 
   Future<void> call(ScheduleModel schedule) {
     return repository.addSchedule(schedule);
   }
 }
 @injectable
-class UpdateScheduleUseCase {
+class UpdateSchedule {
   final ScheduleRepository repository;
 
-  UpdateScheduleUseCase(this.repository);
+  UpdateSchedule(this.repository);
 
   Future<void> call(ScheduleModel schedule) {
     return repository.updateSchedule(schedule);
   }
 }
 @injectable
-class DeleteScheduleUseCase {
+class DeleteSchedule {
   final ScheduleRepository repository;
 
-  DeleteScheduleUseCase(this.repository);
+  DeleteSchedule(this.repository);
 
-  Future<void> call(String employeeName, DateTime date) {
-    return repository.deleteSchedule(employeeName, date);
+  Future<void> call(String scheduleId) {
+    return repository.deleteSchedule(scheduleId);
   }
 }
