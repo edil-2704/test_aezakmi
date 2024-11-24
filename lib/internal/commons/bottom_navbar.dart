@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/finance_page.dart';
-import 'package:test_aezakmi/features/schedule/presentation/pages/graphs_page.dart';
 import 'package:test_aezakmi/features/schedule/presentation/pages/test_grah.dart';
 import 'package:test_aezakmi/features/news/news_page.dart';
 import 'package:test_aezakmi/features/settings/presentation/pages/profile_page.dart';
-import 'package:test_aezakmi/features/settings/presentation/pages/feedback_page.dart';
-import 'package:test_aezakmi/features/employee/presentation/pages/add_employee_page.dart';
 import 'package:test_aezakmi/features/employee/presentation/pages/employee_page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -42,13 +39,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens.elementAt(selectedIndex),
-      // body: IndexedStack(
-      //   index: selectedIndex,
-      //   children: screens,
-      // ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
+        selectedLabelStyle: TextStyle(fontSize: 12),
+        iconSize: 24,
+        unselectedFontSize: 12,
         selectedItemColor: Colors.blue,
         items: [
           BottomNavigationBarItem(
@@ -64,8 +60,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: 'График',
           ),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset('assets/icons/news.svg'),
-              label: 'Эпизоды'),
+            icon: SvgPicture.asset('assets/icons/news.svg'),
+            label: 'Новости',
+          ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset('assets/icons/settings.svg'),
             label: 'Настройки',

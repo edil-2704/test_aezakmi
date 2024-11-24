@@ -45,8 +45,8 @@ class EmptyStatePage extends StatelessWidget {
             child: Text('Тут пока пусто'),
           ),
           Positioned(
-            bottom: 235,
-            right: 125,
+            bottom: 235.h,
+            right: 125.w,
             child: SizedBox(
               child: Text(
                   'Добавьте сотрудников,\nчтобы обеспечить более\n удобный учет'),

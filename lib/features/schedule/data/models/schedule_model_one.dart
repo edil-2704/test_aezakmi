@@ -3,9 +3,7 @@ import 'package:equatable/equatable.dart';
 // ignore: must_be_immutable
 class ScheduleOneItemModel extends Equatable {
   ScheduleOneItemModel({this.name, this.time, this.id}) {
-    name = name ?? "Анохин В.А";
-    time = time ?? "08:00 - 18:00";
-    id = id ?? "";
+   
   }
 
   String? name;

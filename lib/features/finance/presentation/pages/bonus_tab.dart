@@ -7,8 +7,8 @@ import 'package:test_aezakmi/features/finance/presentation/logic/bloc/finance_bl
 import 'package:test_aezakmi/features/finance/presentation/pages/empty_finance_state_page.dart';
 
 class BonusesTab extends StatefulWidget {
-  final String labelText;
-  const BonusesTab({super.key, required this.labelText});
+  // final String labelText;
+  const BonusesTab({super.key,});
 
   @override
   State<BonusesTab> createState() => _BonusesTabState();
@@ -37,7 +37,7 @@ class _BonusesTabState extends State<BonusesTab> {
               children: [
                 if (_isFilterChipVisible && _selectedDate != null)
                   Chip(
-                    label: Text(widget.labelText),
+                    label: Text(''),
                     onDeleted: () {
                       ClearSelectionEvent();
                     },

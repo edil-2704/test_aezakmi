@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_aezakmi/features/finance/presentation/logic/bloc/finance_bloc.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/empty_finance_state_page.dart';

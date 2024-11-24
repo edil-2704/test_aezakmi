@@ -8,20 +8,18 @@ ThemeData darkMode = ThemeData(
     secondary: AppColors.mainBlack,
     tertiary: AppColors.mainWhite,
   ),
-
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    backgroundColor: AppColors.bottomNavDark,
-    selectedLabelStyle: TextStyle(color:AppColors.mainGreen ),
+    backgroundColor: AppColors.mainBackground,
+    selectedLabelStyle: TextStyle(color: AppColors.mainGreen),
     selectedIconTheme: IconThemeData(color: AppColors.mainGreen),
     selectedItemColor: AppColors.mainGreen,
   ),
-  dialogBackgroundColor:  AppColors.bottomNavDark,
-  dialogTheme:const DialogTheme(backgroundColor: Colors.white),
+  dialogBackgroundColor: AppColors.mainBackground,
+  dialogTheme: const DialogTheme(backgroundColor: Colors.white),
   scaffoldBackgroundColor: AppColors.mainBlack,
   iconTheme: const IconThemeData(color: AppColors.mainGreen),
   cardTheme: const CardTheme(color: AppColors.mainBlack),
   textTheme: const TextTheme(
     displayLarge: TextStyle(color: AppColors.mainWhite),
   ),
-
 );

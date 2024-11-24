@@ -1,8 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:test_aezakmi/internal/constants/theme_helper/app_colors.dart';
 
 class ProfileSettings extends StatefulWidget {
@@ -22,16 +23,51 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   final TextEditingController _phoneController =
       TextEditingController(text: '+7 (904) 089 87 86');
 
-  XFile? _profileImage;
+  File? _profileImage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedImage(); // Загрузка сохраненного изображения при инициализации
+  }
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? pickedFile =
         await picker.pickImage(source: ImageSource.gallery);
+
     if (pickedFile != null) {
+      final File imageFile = File(pickedFile.path);
       setState(() {
-        _profileImage = pickedFile;
+        _profileImage = imageFile;
       });
+      await _saveImageLocally(imageFile);
+    }
+  }
+
+  Future<void> _saveImageLocally(File imageFile) async {
+    try {
+      final Directory directory = await getApplicationDocumentsDirectory();
+      final String imagePath = '${directory.path}/profile_image.png';
+      await imageFile.copy(imagePath);
+    } catch (e) {
+      print('Ошибка сохранения изображения: $e');
+    }
+  }
+
+  Future<void> _loadSavedImage() async {
+    try {
+      final Directory directory = await getApplicationDocumentsDirectory();
+      final String imagePath = '${directory.path}/profile_image.png';
+      final File savedImage = File(imagePath);
+
+      if (await savedImage.exists()) {
+        setState(() {
+          _profileImage = savedImage;
+        });
+      }
+    } catch (e) {
+      print('Ошибка загрузки сохраненного изображения: $e');
     }
   }
 
@@ -51,10 +87,15 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             ),
             TextButton(
               onPressed: () {
-                // Perform account deletion action here
+                setState(() {
+                  // delete method
+                });
+
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Аккаунт удален')),
+                  const SnackBar(
+                    content: Text('Аккаунт удален'),
+                  ),
                 );
               },
               child: const Text('Удалить'),
@@ -83,11 +124,10 @@ class _ProfileSettingsState extends State<ProfileSettings> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
             Center(
               child: Stack(
                 alignment: Alignment.bottomRight,
@@ -95,12 +135,12 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                   CircleAvatar(
                     radius: 55,
                     backgroundImage: _profileImage != null
-                        ? FileImage(_profileImage as File)
+                        ? FileImage(_profileImage!)
                         : const AssetImage('assets/images/icon.png')
                             as ImageProvider,
                   ),
                   GestureDetector(
-                    onTap: _pickImage, // Pick image on tap
+                    onTap: _pickImage,
                     child: CircleAvatar(
                       radius: 16,
                       backgroundColor: const Color(0xFFF2F5F7),
@@ -111,15 +151,23 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            InputFieldType(label: 'Имя', controller: _nameController),
-            const SizedBox(height: 10),
-            InputFieldType(label: 'Фамилия', controller: _surnameController),
-            const SizedBox(height: 10),
-            InputFieldType(label: 'Email', controller: _emailController),
-            const SizedBox(height: 10),
-            InputFieldType(label: 'Телефон', controller: _phoneController),
-            Spacer(),
+            InputFieldType(
+              label: 'Имя',
+              controller: _nameController,
+            ),
+            InputFieldType(
+              label: 'Фамилия',
+              controller: _surnameController,
+            ),
+            InputFieldType(
+              label: 'Email',
+              controller: _emailController,
+            ),
+            InputFieldType(
+              label: 'Телефон',
+              controller: _phoneController,
+            ),
+            const Spacer(),
             TextButton(
               onPressed: _deleteAccount,
               child: Text(

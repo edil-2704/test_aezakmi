@@ -9,7 +9,6 @@ import 'package:test_aezakmi/features/employee/domain/repository/employee_reposi
 class EmployeeRepositoryImpl implements EmployeeRepository {
   @override
   Future<List<Employee>> getEmployees() async {
-    // Simulate fetching data
     await Future.delayed(const Duration(seconds: 2));
     return [
       Employee(
@@ -40,7 +39,6 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
         dateOfHire: '20 января 2024',
         salary: '100 000 ₽',
       ),
-      // Add more dummy employees if needed
     ];
   }
 
@@ -49,7 +47,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
     // Code to save employee, could be to a database or API
     await Future.delayed(const Duration(seconds: 1));
   }
-  
+
   @override
   Future<void> saveEmployee({
     required String name,
@@ -61,12 +59,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
   }) async {
     // Simulate saving data, e.g., in a local database
     await Future.delayed(Duration(seconds: 1));
-
-    // Here you can include actual saving logic, like:
-    // - Saving to a local database
-    // - Sending data to a remote server, etc.
     print(
         "Employee saved: $name, $jobTitle, $salary, $phone, $date, $comments");
   }
 }
-

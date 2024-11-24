@@ -20,49 +20,36 @@ class CustomSavedPage extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
       ),
-      body: Stack(
-        children: [
-          Positioned(
-            top: 240,
-            right: 100,
-            child: Image.asset(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
               'assets/images/saved_person.png',
               height: 142.h,
               width: 215.w,
             ),
-          ),
-          Positioned(
-            bottom: 300,
-            right: 165,
-            child: Text(
+            Text(
               tittle,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
             ),
-          ),
-          Positioned(
-            bottom: 265,
-            right: 110,
-            child: SizedBox(
+            SizedBox(
               child: Text(
                 'Параметры успешно сохранены.',
                 maxLines: 2,
               ),
             ),
-          ),
-          Positioned(
-            bottom: 150,
-            right: 90,
-            child: CustomTextButton(
+            CustomTextButton(
               onPressed: onTap,
               text: btnTittle,
               height: 62.h,
               width: 218.w,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

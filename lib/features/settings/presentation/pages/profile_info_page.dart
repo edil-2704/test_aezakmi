@@ -36,17 +36,22 @@ class ProfileInfoPage extends StatelessWidget {
   }
 }
 
-Future<void> _launchUrl(Uri uri, bool inApp) async {
+Future<void> _launchUrl(String url, {bool inApp = false}) async {
+  final Uri uri = Uri.parse(url);
   try {
     if (await canLaunchUrl(uri)) {
-      if (inApp) {
-        await launchUrl(uri, mode: LaunchMode.inAppWebView);
-      } else {
-        await launchUrl(uri, mode: LaunchMode.externalNonBrowserApplication);
-      }
+      await launchUrl(
+        uri,
+        mode: inApp
+            ? LaunchMode.inAppWebView
+            : LaunchMode
+                .externalApplication, // Используйте этот режим для открытия в браузере
+      );
+    } else {
+      log('Не удалось открыть URL: $url');
     }
   } catch (e) {
-    log('${e.toString()}');
+    log('Ошибка открытия URL: $e');
   }
 }
 
@@ -59,20 +64,21 @@ class BuildListTileWidget extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 11.0),
-            title: Text(
-              title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: Color(0xFF252525),
-              ),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 11.0),
+          title: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFF252525),
             ),
-            trailing: const Icon(Icons.chevron_right, color: Color(0xFF818181)),
-            onTap: () {
-              _launchUrl(Uri.parse('https://pub.dev/'), false);
-            }),
+          ),
+          trailing: const Icon(Icons.chevron_right, color: Color(0xFF818181)),
+          onTap: () {
+            _launchUrl('https://pub.dev/', inApp: false);
+          },
+        ),
         const Divider(height: 1, color: Colors.grey),
       ],
     );

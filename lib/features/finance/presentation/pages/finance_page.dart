@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_aezakmi/features/finance/presentation/logic/bloc/finance_bloc.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/bonus_tab.dart';
-import 'package:test_aezakmi/features/finance/presentation/pages/filter_plus_page.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/salary_tabs.dart';
 import 'package:test_aezakmi/features/finance/presentation/pages/warning_tabs.dart';
 import 'package:test_aezakmi/features/employee/presentation/widget/text_buttons.dart';
@@ -43,10 +42,14 @@ class _FinancePageState extends State<FinancePage>
     }
   }
 
+  
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+
+    
 
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) return;
@@ -91,7 +94,7 @@ class _FinancePageState extends State<FinancePage>
                 width: 90.w,
                 text: 'Filter',
                 onPressed: () {
-                  return _pickDate;
+                  return _pickDate(context);
                 },
               ),
               const SizedBox(width: 16),
@@ -110,27 +113,25 @@ class _FinancePageState extends State<FinancePage>
           body: TabBarView(
             controller: _tabController,
             children: [
+              
               WarningsTab(),
-              BonusesTab(
-                labelText: pickedDate.toString(),
-              ),
+              BonusesTab(),
               SalariesTabs(),
             ],
           ),
           floatingActionButton: InkWell(
             onTap: () {
-              // List pages = [
-              //   WarningsTab(),
-              //   BonusesTab(),
-              //   SalariesTab(),
-              // ];
-
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => pages[_tabController.index],
-              //   ),
-              // );
+              switch (_tabController.index) {
+                case 0:
+                  bloc.add(FetchWarnings());
+                  break;
+                case 1:
+                  bloc.add(FetchBonuses());
+                  break;
+                case 2:
+                  bloc.add(FetchSalaries());
+                  break;
+              }
             },
             splashColor: Colors.transparent,
             splashFactory: NoSplash.splashFactory,

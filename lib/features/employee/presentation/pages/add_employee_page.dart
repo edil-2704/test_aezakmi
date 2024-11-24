@@ -28,8 +28,8 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
   @override
   void initState() {
     bloc.add(
-      SaveEmployeeEvent(
-        employee: Employee(
+      AddEmployee(
+        Employee(
           id: '',
           name: nameController.text,
           jobTitle: employeeController.text,
@@ -39,6 +39,18 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
       ),
     );
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers to avoid memory leaks
+    nameController.dispose();
+    employeeController.dispose();
+    salaryController.dispose();
+    phoneController.dispose();
+    dateController.dispose();
+    commentsController.dispose();
+    super.dispose();
   }
 
   @override
@@ -88,7 +100,7 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
             Spacer(),
             CustomTextButton(
               onPressed: () {
-                // Dispatch the SaveEmployeeEvent when the button is pressed
+              
                 bloc.add(SaveEmployeeEvent(
                   employee: Employee(
                     id: '',
@@ -103,14 +115,15 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
               height: 62.h,
               width: 358.w,
             ),
-            // Listen for states and show the result
+       
             BlocConsumer<EmployeeBloc, EmployeeState>(
               bloc: bloc,
               listener: (context, state) {
                 if (state is EmployeeErrorState) {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text('Error')));
-                } else if (state is EmployeeSaved) {
+                } 
+                 if (state is EmployeeSaved) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(

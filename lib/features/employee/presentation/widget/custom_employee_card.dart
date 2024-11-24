@@ -29,12 +29,14 @@ class EmployeeCard extends StatelessWidget {
               children: [
                 const Icon(Icons.person, color: Color(0xFF2253F6)),
                 const SizedBox(width: 8),
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF252525),
+                Expanded(
+                  child: Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF252525),
+                    ),
                   ),
                 ),
               ],

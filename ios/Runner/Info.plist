@@ -42,8 +42,20 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
+	<true/><key>NSCameraUsageDescription</key>
+    <string>Your app needs access to the camera to take photos and videos.</string>
+    
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Your app needs access to the photo library to select photos and videos.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>http</string>
+		<string>https</string>
+	</array>
+	
+	
 </dict>
 </plist>

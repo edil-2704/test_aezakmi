@@ -1,8 +1,9 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:test_aezakmi/features/splash_page.dart';
-import 'package:test_aezakmi/internal/commons/bottom_navbar.dart';
 import 'package:test_aezakmi/internal/constants/theme_helper/app_colors.dart';
 import 'package:test_aezakmi/internal/dependencies/get_it.dart';
 
@@ -11,7 +12,8 @@ Future<void> main() async {
   await Hive.initFlutter();
 
   configureDependencies();
-  runApp(const MyApp());
+
+  runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
 }
 
 class MyApp extends StatelessWidget {

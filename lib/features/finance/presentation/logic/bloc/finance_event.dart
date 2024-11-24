@@ -11,10 +11,12 @@ class FetchSalaries extends FinanceEvent {}
 
 class FetchBonusesByDateAndId extends FinanceEvent {
   final DateTime date;
+  final int id;
   final int employeeId;
 
-  FetchBonusesByDateAndId({required this.date, required this.employeeId});
-
-  get id => null;
+  FetchBonusesByDateAndId({
+    required this.date,
+    required this.employeeId,
+    required this.id,
+  });
 }
-

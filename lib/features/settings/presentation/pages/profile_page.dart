@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:test_aezakmi/features/settings/presentation/pages/feedback_page.dart';
 import 'package:test_aezakmi/features/settings/presentation/pages/profile_info_page.dart';
 import 'package:test_aezakmi/features/settings/presentation/pages/profile_settings.dart';
@@ -11,6 +14,30 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  File? _profileImage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileImage(); // Load the saved profile image
+  }
+
+  Future<void> _loadProfileImage() async {
+    try {
+      final Directory directory = await getApplicationDocumentsDirectory();
+      final String imagePath = '${directory.path}/profile_image.png';
+      final File profileImageFile = File(imagePath);
+
+      if (await profileImageFile.exists()) {
+        setState(() {
+          _profileImage = profileImageFile;
+        });
+      }
+    } catch (e) {
+      print('Error loading profile image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +62,10 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 20),
             CircleAvatar(
               radius: 55,
-              backgroundImage:
-                  AssetImage('assets/images/news_1.png'), // Image asset
+              backgroundImage: _profileImage != null
+                  ? FileImage(_profileImage!) // Show saved image if available
+                  : const AssetImage('assets/images/news_1.png')
+                      as ImageProvider, // Default image
             ),
             const SizedBox(height: 10),
             const Text(
@@ -51,22 +80,37 @@ class _ProfilePageState extends State<ProfilePage> {
             ChangePagesTile(
               title: 'Настройка профиля',
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfileSettings()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileSettings(),
+                  ),
+                ).then((_) {
+                  // Reload the profile image when returning to this page
+                  _loadProfileImage();
+                });
               },
             ),
             ChangePagesTile(
               title: 'Обратная связь',
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FeedbackPage()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FeedbackPage(),
+                  ),
+                );
               },
             ),
             ChangePagesTile(
               title: 'Информация',
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfileInfoPage()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileInfoPage(),
+                  ),
+                );
               },
             ),
           ],

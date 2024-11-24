@@ -544,7 +544,7 @@
 //             ),
 //             const SizedBox(height: 12),
 //             const Text('Рабочее время',
-//                 style: TextStyle(color: Color(0xFF818181))),
+//                 style: TextStyle(color: Color(0xFF818181),),),
 //             Row(
 //               children: [
 //                 Flexible(

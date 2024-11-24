@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:test_aezakmi/features/employee/presentation/logic/bloc/employee_bloc.dart';
 import 'package:test_aezakmi/features/employee/presentation/pages/add_employee_page.dart';
 import 'package:test_aezakmi/features/employee/presentation/pages/custom_empty_state.dart';
-import 'package:test_aezakmi/features/employee/presentation/pages/employees_info_page.dart';
 import 'package:test_aezakmi/features/employee/presentation/widget/custom_employee_card.dart';
 import 'package:test_aezakmi/internal/dependencies/get_it.dart';
 
@@ -39,74 +38,82 @@ class _EmployeePageState extends State<EmployeePage> {
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          Padding(
-              padding: EdgeInsets.all(16.r),
-              child: BlocBuilder(
-                bloc: bloc,
-                builder: (context, state) {
-                  if (state is EmployeeLoadingState) {
-                    return const Center(
-                      child: CupertinoActivityIndicator(),
-                    );
-                  } else if (state is EmployeeLoadedState) {
-                    return ListView.separated(
-                      itemCount: state.employees.length,
-                      itemBuilder: (context, index) {
-                        final employee = state.employees[index];
-                        return InkWell(
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => EmployeesInfoPage(),
-                            //   ),
-                            // );
-                          },
-                          child: EmployeeCard(
-                            name: employee.name,
-                            jobTitle: employee.jobTitle,
-                            salary: employee.salary,
-                            date: employee.dateOfHire,
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 20),
-                    );
-                  } else if (state is EmployeeErrorState) {
-                    return Center(child: Text('Error: ${state.error}'));
-                  }
+      body: Padding(
+        padding: EdgeInsets.all(16.r),
+        child: Stack(
+          children: [
+            BlocBuilder(
+              bloc: bloc,
+              builder: (context, state) {
+                if (state is EmployeeLoadingState) {
+                  return const Center(
+                    child: CupertinoActivityIndicator(),
+                  );
+                }
+                if (state is EmployeeLoadedState) {
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: state.employees.length,
+                    itemBuilder: (context, index) {
+                      final employee = state.employees[index];
+                      return InkWell(
+                        onTap: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => EmployeesInfoPage(),
+                          //   ),
+                          // );
+                        },
+                        child: EmployeeCard(
+                          name: employee.name,
+                          jobTitle: employee.jobTitle,
+                          salary: employee.salary,
+                          date: employee.dateOfHire,
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 20),
+                  );
+                }
+                if (state is EmployeeErrorState) {
                   return Center(
                     child: EmptyStatePage(
-                      pathToPic: 'pathToPic',
+                      pathToPic: 'assets/images/add_people.png',
                       appBarTittle: 'appBarTittle',
-                      actions: [Icon(Icons.ac_unit)],
+                      actions: [
+                        Icon(Icons.ac_unit),
+                      ],
                     ),
                   );
-                },
-              )),
-          Positioned(
-            bottom: 10,
-            right: 10,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddEmployeePage(),
+                }
+                return Center(
+                  child: EmptyStatePage(
+                    pathToPic: 'assets/images/add_people.png',
+                    appBarTittle: 'appBarTittle',
+                    actions: [Icon(Icons.ac_unit)],
                   ),
                 );
               },
-              splashColor: Colors.transparent,
-              splashFactory: NoSplash.splashFactory,
-              child: SvgPicture.asset(
-                'assets/icons/floating.svg',
-              ),
             ),
-          ),
-        ],
+          ],
+        ),
+      ),
+      floatingActionButton: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddEmployeePage(),
+            ),
+          );
+        },
+        splashColor: Colors.transparent,
+        splashFactory: NoSplash.splashFactory,
+        child: SvgPicture.asset(
+          'assets/icons/floating.svg',
+        ),
       ),
     );
   }

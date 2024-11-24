@@ -27,21 +27,54 @@ class SalaryInfoPage extends StatelessWidget {
         child: ListView(
           children: [
             const SizedBox(height: 20),
-            _buildInfoCard('Сотрудник', 'Кудрявцев Владимир Андреевич'),
-            _buildInfoCard('Должность', 'ИТ - аналитик'),
-            _buildInfoCard('Расчетный период', '10.12.2023 - 10.01.2024'),
-            _buildInfoCard('Зарплата', '100 000 ₽'),
-            _buildBonusesAndPenaltiesSection(),
-            _buildInfoCard('Итоговая сумма', '100 000 ₽',
-                isIconVisible: true, context: context),
+            const InfoCard(
+                label: 'Сотрудник', value: 'Кудрявцев Владимир Андреевич'),
+            const InfoCard(label: 'Должность', value: 'ИТ - аналитик'),
+            const InfoCard(
+                label: 'Расчетный период', value: '10.12.2023 - 10.01.2024'),
+            const InfoCard(label: 'Зарплата', value: '100 000 ₽'),
+            const BonusesAndPenaltiesSection(),
+            InfoCard(
+              label: 'Итоговая сумма',
+              value: '100 000 ₽',
+              isIconVisible: true,
+              onIconPressed: () => _showTooltip(context),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildInfoCard(String label, String value,
-      {bool isIconVisible = false, BuildContext? context}) {
+  static void _showTooltip(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const CupertinoAlertDialog(
+          content: Text(
+              'Расчёт производится на основе указанной заработной платы, а также учёта штрафов и премий.'),
+        );
+      },
+    );
+  }
+}
+
+class InfoCard extends StatelessWidget {
+  final String label;
+  final String value;
+  final bool isIconVisible;
+  final VoidCallback? onIconPressed;
+
+  const InfoCard({
+    super.key,
+    required this.label,
+    required this.value,
+    this.isIconVisible = false,
+    this.onIconPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Column(
@@ -66,19 +99,19 @@ class SalaryInfoPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  value,
-                  style: const TextStyle(
-                    fontFamily: 'SF Pro Text',
-                    fontSize: 16,
-                    color: Color(0xFF252525),
+                Expanded(
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      fontFamily: 'SF Pro Text',
+                      fontSize: 16,
+                      color: Color(0xFF252525),
+                    ),
                   ),
                 ),
                 if (isIconVisible)
                   IconButton(
-                    onPressed: () {
-                      _showTooltip(context!);
-                    },
+                    onPressed: onIconPressed,
                     icon: const Icon(Icons.help_outline, color: Colors.grey),
                   ),
               ],
@@ -88,8 +121,13 @@ class SalaryInfoPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildBonusesAndPenaltiesSection() {
+class BonusesAndPenaltiesSection extends StatelessWidget {
+  const BonusesAndPenaltiesSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 20.h),
       child: Column(
@@ -111,12 +149,20 @@ class SalaryInfoPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(13),
             ),
             child: Column(
-              children: [
-                _buildBonusOrPenaltyRow(
-                    Icons.add, Colors.green, '+ 5 000 ₽', '10.12.2023'),
-                SizedBox(height: 16.h),
-                _buildBonusOrPenaltyRow(
-                    Icons.remove, Colors.red, '- 5 000 ₽', '10.01.2024'),
+              children: const [
+                BonusOrPenaltyRow(
+                  icon: Icons.add,
+                  iconColor: Colors.green,
+                  amount: '+ 5 000 ₽',
+                  date: '10.12.2023',
+                ),
+                SizedBox(height: 16),
+                BonusOrPenaltyRow(
+                  icon: Icons.remove,
+                  iconColor: Colors.red,
+                  amount: '- 5 000 ₽',
+                  date: '10.01.2024',
+                ),
               ],
             ),
           ),
@@ -124,9 +170,24 @@ class SalaryInfoPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildBonusOrPenaltyRow(
-      IconData icon, Color iconColor, String amount, String date) {
+class BonusOrPenaltyRow extends StatelessWidget {
+  final IconData icon;
+  final Color iconColor;
+  final String amount;
+  final String date;
+
+  const BonusOrPenaltyRow({
+    super.key,
+    required this.icon,
+    required this.iconColor,
+    required this.amount,
+    required this.date,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -156,20 +217,6 @@ class SalaryInfoPage extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  void _showTooltip(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          content: SizedBox(
-            child: const Text(
-                'Расчёт производитсяна основе указанной заработной платы, а также учёта штрафов и премий.'),
-          ),
-        );
-      },
     );
   }
 }
